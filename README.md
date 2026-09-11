@@ -18,6 +18,12 @@ Windows 10/11 上的本地常驻托盘小工具:采集每个进程的**运行时
 - **可执行包(Windows x64,免构建)**:[Releases](https://github.com/Omention312/Usagetracker/releases) 里下载最新 zip,解压后双击 `UsageTracker.Engine.exe`
   —— 需要 **.NET 8 Desktop Runtime**(框架依赖发布)
 - 想自己构建:见下方「构建」一节
+- **NuGet 包**:[`UsageTracker.Core`](https://github.com/users/Omention312/packages/nuget/package/UsageTracker.Core)(GitHub Packages,数据层可单独复用)
+  ```powershell
+  # 消费端需带 read:packages 的 PAT(GitHub Packages 的 NuGet 源即使公开包也要求鉴权)
+  dotnet nuget add source https://nuget.pkg.github.com/Omention312/index.json -n github -u Omention312 -p <PAT>
+  dotnet add package UsageTracker.Core
+  ```
 
 对应设计文档 `docs/设计方案.md`(v2);开发交接与问题史见 `docs/HANDOVER.md`。
 

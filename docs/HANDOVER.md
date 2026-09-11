@@ -193,10 +193,13 @@ Windows 10/11 本地应用「应用运行时长记录」:常驻托盘后台采�
   - 推送凭据由 GitHub CLI 提供(`gh auth setup-git`,已配置 URL 级 helper)。若报 `Invalid username or token`,是 Windows 凭据管理器里旧账号凭据抢先 —— 用 `credential.https://github.com.helper` 覆盖即可(已处理)
 - **Release**:https://github.com/Omention312/Usagetracker/releases/tag/v1.0.0
   - 资产 `UsageTracker-v1.0.0-win-x64.zip`(1.23 MB;框架依赖,已剔除 pdb 与非 win-x64 原生库)
-- **GitHub Packages(NuGet)**:包已构建(`dist\nupkg\UsageTracker.Core.1.0.0.nupkg`),但推送被 **403** 拒绝 ——
-  当前 gh token 的 scopes 仅 `gist / read:org / repo / workflow`,**缺 `write:packages`**。
-  修法(二选一):① `gh auth refresh -h github.com -s write:packages` 后重推;
-  ② 用带 `write:packages` 的 PAT:`dotnet nuget push dist\nupkg\*.nupkg --source https://nuget.pkg.github.com/Omention312/index.json --api-key <PAT>`
+- **GitHub Packages(NuGet)**:已发布 ✅ `UsageTracker.Core 1.0.0`
+  https://github.com/users/Omention312/packages/nuget/package/UsageTracker.Core
+  - 推送方式:`gh auth refresh -h github.com -s write:packages` 后执行
+    `dotnet nuget push dist\nupkg\*.nupkg --source https://nuget.pkg.github.com/Omention312/index.json --api-key <token>`
+  - **可见性默认 private,REST API 改不了**(`PATCH /user/packages/...` 返回 404,GitHub 不支持对 NuGet 包改可见性)——
+    如需公开:包页面 → Package settings → Change visibility。注意 GitHub Packages 的 NuGet 源**即使公开包也要鉴权**,所以可见性对实际消费影响不大。
+  - 消费端:`dotnet nuget add source https://nuget.pkg.github.com/Omention312/index.json -n github -u Omention312 -p <带 read:packages 的 PAT>`,再 `dotnet add package UsageTracker.Core`
 - **入库前做过的清理**:所有绝对路径(`D:\Program Files\dsh\...`)改为相对/泛化;`usage.cmd` 用 `%~dp0`、`verify\*.ps1` 用 `$PSScriptRoot`、`tools\IconGen` 用相对参数;各 csproj 的 `RestorePackagesPath` 上收到仓库根 `Directory.Build.props`(仅当克隆的上一级存在 `.nuget-packages\` 时才启用,否则走系统全局包目录)。
 - **未入库的本机专属目录**:`dotnet-sdk\`(713MB)、`.nuget-packages\`(49.5MB)、`release\`、`dist\`、`问题\`(真机截图)、`参考\`(设计参考图)。
 - **CI**:`.github/workflows/build.yml`(windows-latest 上 `dotnet build UsageTracker.sln -c Release`)。
