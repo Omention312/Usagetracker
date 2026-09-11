@@ -15,4 +15,17 @@
     <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.11" />
   </ItemGroup>
 
-</Project>
+  <!-- NuGet 包元数据(GitHub Packages 发布用) -->
+  <PropertyGroup>
+    <PackageId>UsageTracker.Core</PackageId>
+    <Authors>Omention312</Authors>
+    <Description>UsageTracker 的数据层:进程快照、Edge 域名归一、SQLite 数据访问与口径计算(今日前台/后台/总计)。</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/Omention312/Usagetracker</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>usagetracker;winforms;sqlite;process;tracking</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup></Project>

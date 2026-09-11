@@ -200,3 +200,4 @@ Windows 10/11 本地应用「应用运行时长记录」:常驻托盘后台采�
 - **入库前做过的清理**:所有绝对路径(`D:\Program Files\dsh\...`)改为相对/泛化;`usage.cmd` 用 `%~dp0`、`verify\*.ps1` 用 `$PSScriptRoot`、`tools\IconGen` 用相对参数;各 csproj 的 `RestorePackagesPath` 上收到仓库根 `Directory.Build.props`(仅当克隆的上一级存在 `.nuget-packages\` 时才启用,否则走系统全局包目录)。
 - **未入库的本机专属目录**:`dotnet-sdk\`(713MB)、`.nuget-packages\`(49.5MB)、`release\`、`dist\`、`问题\`(真机截图)、`参考\`(设计参考图)。
 - **CI**:`.github/workflows/build.yml`(windows-latest 上 `dotnet build UsageTracker.sln -c Release`)。
+- **许可证**:MIT(LICENSE,© 2026 Omention312);UsageTracker.Core 已带 NuGet 包元数据(License/Authors/RepositoryUrl/README)。

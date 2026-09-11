@@ -18,4 +18,7 @@
     <ProjectReference Include="..\UsageTracker.Core\UsageTracker.Core.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 </Project>

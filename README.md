@@ -124,3 +124,7 @@ dotnet run --project UsageTracker.M0Spike -- probe-edge-dump https://space.bilib
 dotnet run --project UsageTracker.M0Spike -- probe-db
 dotnet run --project UsageTracker.M0Spike -- probe-tray 25
 ```
+
+## 许可证
+
+[MIT](LICENSE) © 2026 Omention312
