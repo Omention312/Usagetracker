@@ -1,0 +1,14 @@
+<Project>
+
+  <!--
+    NuGet 包目录策略(便携/离线构建):
+      · 若克隆的**上一级**目录存在 .nuget-packages\ —— 那正是本项目开发机的布局
+        (SDK 与包都放在开发目录内,不写系统目录),就直接用它;
+      · 否则留空,走 NuGet 默认的全局包目录(不会在克隆外乱建文件夹)。
+    如需强制指定,可在命令行传 -p:RestorePackagesPath=<路径>。
+  -->
+  <PropertyGroup>
+    <RestorePackagesPath Condition="'$(RestorePackagesPath)' == '' and Exists('$(MSBuildThisFileDirectory)..\.nuget-packages')">$(MSBuildThisFileDirectory)..\.nuget-packages</RestorePackagesPath>
+  </PropertyGroup>
+
+</Project>

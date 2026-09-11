@@ -1,0 +1,22 @@
+# 构建产物
+bin/
+obj/
+release/
+*.user
+*.suo
+.vs/
+
+# 本机 NuGet 包目录(若按本机开发布局放在仓库内)
+.nuget-packages/
+
+# 本机开发期的离屏截图(UI 迭代用,不属于源码)
+/calib.png
+/full2.png
+/run*.png
+/s-now.png
+/shot*.png
+/ui-s.png
+
+# 本机临时数据目录与日志
+.runtime-*/
+*.log

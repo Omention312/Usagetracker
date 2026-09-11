@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <!-- 引入 UIAutomation(System.Windows.Automation),供 Edge 地址栏读取 -->
+    <UseWPF>true</UseWPF>
+    <!-- 结构体按 x64 布局假设,显式锁定 x64 -->
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>UsageTracker.Spike</RootNamespace>
+    <AssemblyName>UsageTracker.Spike</AssemblyName>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <RollForward>LatestMajor</RollForward>
+    <!-- NuGet 包目录由仓库根的 Directory.Build.props 统一决定 -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.11" />
+  </ItemGroup>
+
+</Project>
