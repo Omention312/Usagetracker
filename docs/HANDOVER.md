@@ -182,3 +182,21 @@ Windows 10/11 本地应用「应用运行时长记录」:常驻托盘后台采�
   - 保留:`dotnet-sdk\`(713MB,构建工具链)、`.nuget-packages\`(49.5MB,离线还原必需)、`问题\`(真机截图证据)、`参考\`(设计参考图 1~5.png)、源码与数据目录(库 + 30 份滚动备份 + 修边前手工备份)。
 - **`usage.cmd`** 已从 Debug CLI 改为指向 `release\UsageTracker.Cli.exe`(Debug 产物已清理),用法提示补上 `overview`/`report`/`repair-spans`。
 - **入口速查**:开发/维护看 `readme.md`(§2 构建、§5 问题史、§6 变更、§8 交付);日常查询双击 `UsageTracker\usage.cmd`;交付给他人用 `dist\...zip`。
+
+---
+
+## 9. 仓库 / 发布 / 打包(2026-09-11)
+
+- **源码仓库**:https://github.com/Omention312/Usagetracker (PUBLIC,`main`)
+  - **仓库根 = `UsageTracker\`**;`.gitignore` 排除 `bin/ obj/ release/ .nuget-packages/` 与本机开发期离屏截图(`shot*.png`、`run*.png` 等)
+  - 提交身份用 GitHub noreply 邮箱(`Omention312@users.noreply.github.com`),不暴露真实邮箱;要改:`git config user.email <你的邮箱>`
+  - 推送凭据由 GitHub CLI 提供(`gh auth setup-git`,已配置 URL 级 helper)。若报 `Invalid username or token`,是 Windows 凭据管理器里旧账号凭据抢先 —— 用 `credential.https://github.com.helper` 覆盖即可(已处理)
+- **Release**:https://github.com/Omention312/Usagetracker/releases/tag/v1.0.0
+  - 资产 `UsageTracker-v1.0.0-win-x64.zip`(1.23 MB;框架依赖,已剔除 pdb 与非 win-x64 原生库)
+- **GitHub Packages(NuGet)**:包已构建(`dist\nupkg\UsageTracker.Core.1.0.0.nupkg`),但推送被 **403** 拒绝 ——
+  当前 gh token 的 scopes 仅 `gist / read:org / repo / workflow`,**缺 `write:packages`**。
+  修法(二选一):① `gh auth refresh -h github.com -s write:packages` 后重推;
+  ② 用带 `write:packages` 的 PAT:`dotnet nuget push dist\nupkg\*.nupkg --source https://nuget.pkg.github.com/Omention312/index.json --api-key <PAT>`
+- **入库前做过的清理**:所有绝对路径(`D:\Program Files\dsh\...`)改为相对/泛化;`usage.cmd` 用 `%~dp0`、`verify\*.ps1` 用 `$PSScriptRoot`、`tools\IconGen` 用相对参数;各 csproj 的 `RestorePackagesPath` 上收到仓库根 `Directory.Build.props`(仅当克隆的上一级存在 `.nuget-packages\` 时才启用,否则走系统全局包目录)。
+- **未入库的本机专属目录**:`dotnet-sdk\`(713MB)、`.nuget-packages\`(49.5MB)、`release\`、`dist\`、`问题\`(真机截图)、`参考\`(设计参考图)。
+- **CI**:`.github/workflows/build.yml`(windows-latest 上 `dotnet build UsageTracker.sln -c Release`)。

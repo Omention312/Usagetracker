@@ -13,6 +13,11 @@ Windows 10/11 上的本地常驻托盘小工具:采集每个进程的**运行时
 - 附带 CLI:`status / today / top / overview / report`(自包含 HTML 周报)`/ recent / blacklist / repair-spans / autostart`
 
 > 文档:`docs/设计方案.md`(原始设计 v2)· `docs/HANDOVER.md`(**开发交接:构建、运行、数据口径、问题史与实测记录**)
+## 下载
+
+- **可执行包(Windows x64,免构建)**:[Releases](https://github.com/Omention312/Usagetracker/releases) 里下载最新 zip,解压后双击 `UsageTracker.Engine.exe`
+  —— 需要 **.NET 8 Desktop Runtime**(框架依赖发布)
+- 想自己构建:见下方「构建」一节
 
 对应设计文档 `docs/设计方案.md`(v2);开发交接与问题史见 `docs/HANDOVER.md`。
 

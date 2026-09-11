@@ -1,0 +1,36 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore UsageTracker.sln
+
+      - name: Build (Release)
+        run: dotnet build UsageTracker.sln -c Release --no-restore
+
+      - name: Publish engine + cli (win-x64, framework-dependent)
+        run: |
+          dotnet publish src/UsageTracker.Engine/UsageTracker.Engine.csproj -c Release -o out
+          dotnet publish src/UsageTracker.Cli/UsageTracker.Cli.csproj -c Release -o out
+
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: UsageTracker-win-x64
+          path: out/
+          if-no-files-found: error
